@@ -1,4 +1,63 @@
 .App {
   font-family: sans-serif;
   text-align: center;
+  margin: auto;
+  max-width: 800px;
+}
+
+body {
+  margin: 1rem;
+  padding: 1rem;
+}
+
+table,
+th,
+td {
+  border: 2px solid #7fbcd2;
+  border-collapse: collapse;
+  padding: 1rem;
+  color: #0f3460;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: #a5f1e9;
+  padding: 2rem;
+}
+
+.container label {
+  font-size: 1.2rem;
+  color: #0f3460;
+}
+
+.container input {
+  padding: 0.8rem;
+  border: 2px solid #7fbcd2;
+  margin-bottom: 2rem;
+}
+
+button {
+  width: 25%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  position: relative;
+  left: 35%;
+  background-color: #0f3460;
+  color: #a5f1e9;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+header {
+  color: #0f3460;
+  font-size: 3rem;
+  margin-bottom: 2rem;
+}
+
+#message {
+  color: #0f3460;
+  font-size: 15px;
+  text-align: center;
 }

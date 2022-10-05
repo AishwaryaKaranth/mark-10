@@ -1,10 +1,11 @@
 import "./styles.css";
+import React from "react";
 import { useState } from "react";
 
 function App() {
-  const [bill, setBill] = useState(null);
-  const [cash, setCash] = useState(null);
-  const [denominations, setDenominations] = useState(null);
+  const [bill, setBill] = useState(0);
+  const [cash, setCash] = useState(0);
+  const [denominations, setDenominations] = useState(0);
   const [message, setMessage] = useState("");
   const [one, setOne] = useState(0);
   const [two, setTwo] = useState(0);
@@ -16,6 +17,7 @@ function App() {
   const [twoHundred, setTwoHundred] = useState(0);
   const [fiveHundred, setFiveHundred] = useState(0);
   const [twoThousand, setTwoThousand] = useState(0);
+  const [clicked, setClicked] = useState(false);
 
   let changeToBeReturned = "";
 
@@ -32,17 +34,21 @@ function App() {
     1: 0
   };
 
-  const clickHandler = () => {
+  const clickHandler = (e) => {
+    e.persist();
+    setClicked(true);
     if (bill === cash) {
       changeToBeReturned = "Cash given is equal to bill amount";
       setMessage(changeToBeReturned);
-    } else if (bill > cash) {
+    } else if (parseInt(bill) > parseInt(cash)) {
       changeToBeReturned = "Amount tendered is less than the bill amount!";
       setMessage(changeToBeReturned);
     } else {
       changeToBeReturned = `Remaining amount to be paid ${cash - bill}`;
-      setMessage(changeToBeReturned);
+
       let denominationsToBeReturned = returnAmountHandler(bill, cash);
+
+      setMessage(changeToBeReturned);
       setDenominations(denominationsToBeReturned);
       setOne(denominations[1]);
       setTwo(denominations[2]);
@@ -74,50 +80,56 @@ function App() {
   return (
     <div className="App">
       <header>Cash Register</header>
-      <input
-        type="textbox"
-        label="Bill Amount:"
-        value={bill}
-        onChange={(e) => setBill(e.target.value)}
-      />
-      <input
-        type="textbox"
-        label="Cash Given:"
-        value={cash}
-        onChange={(e) => setCash(e.target.value)}
-      />
-      <button label="Check" onClick={() => clickHandler()}>
-        Check
-      </button>
-      <p>{message}</p>
-      <table>
-        <tr>
-          <th>Notes</th>
-          <th>1</th>
-          <th>2</th>
-          <th>5</th>
-          <th>10</th>
-          <th>20</th>
-          <th>50</th>
-          <th>100</th>
-          <th>200</th>
-          <th>500</th>
-          <th>2000</th>
-        </tr>
-        <tr>
-          <td>Number of Notes</td>
-          <td>{one}</td>
-          <td>{two}</td>
-          <td>{five}</td>
-          <td>{ten}</td>
-          <td>{twenty}</td>
-          <td>{fifty}</td>
-          <td>{hundred}</td>
-          <td>{twoHundred}</td>
-          <td>{fiveHundred}</td>
-          <td>{twoThousand}</td>
-        </tr>
-      </table>
+      <div className="container">
+        <label>Bill Amount</label>
+        <input
+          type="number"
+          label="Bill Amount:"
+          value={bill}
+          onChange={(e) => setBill(e.target.value)}
+        />
+        <label>Cash Given</label>
+        <input
+          type="number"
+          label="Cash Given:"
+          value={cash}
+          onChange={(e) => setCash(e.target.value)}
+        />
+        <button label="Check" onClick={(e) => clickHandler(e)}>
+          Check
+        </button>
+        <p id="message">Double click to get the result!</p>
+
+        <h3>{message}</h3>
+        <table>
+          <tr>
+            <th>Notes</th>
+            <th>1</th>
+            <th>2</th>
+            <th>5</th>
+            <th>10</th>
+            <th>20</th>
+            <th>50</th>
+            <th>100</th>
+            <th>200</th>
+            <th>500</th>
+            <th>2000</th>
+          </tr>
+          <tr>
+            <td>Number of Notes</td>
+            <td>{one}</td>
+            <td>{two}</td>
+            <td>{five}</td>
+            <td>{ten}</td>
+            <td>{twenty}</td>
+            <td>{fifty}</td>
+            <td>{hundred}</td>
+            <td>{twoHundred}</td>
+            <td>{fiveHundred}</td>
+            <td>{twoThousand}</td>
+          </tr>
+        </table>
+      </div>
     </div>
   );
 }
