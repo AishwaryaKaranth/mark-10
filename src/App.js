@@ -49,17 +49,17 @@ function App() {
       let denominationsToBeReturned = returnAmountHandler(bill, cash);
 
       setMessage(changeToBeReturned);
-      setDenominations(denominationsToBeReturned);
-      setOne(denominations[1]);
-      setTwo(denominations[2]);
-      setFive(denominations[5]);
-      setTen(denominations[10]);
-      setTwenty(denominations[20]);
-      setFifty(denominations[50]);
-      setHundred(denominations[100]);
-      setTwoHundred(denominations[200]);
-      setFiveHundred(denominations[500]);
-      setTwoThousand(denominations[2000]);
+      setDenominations(() => denominationsToBeReturned);
+      setOne(() => denominations[1]);
+      setTwo(() => denominations[2]);
+      setFive(() => denominations[5]);
+      setTen(() => denominations[10]);
+      setTwenty(() => denominations[20]);
+      setFifty(() => denominations[50]);
+      setHundred(() => denominations[100]);
+      setTwoHundred(() => denominations[200]);
+      setFiveHundred(() => denominations[500]);
+      setTwoThousand(() => denominations[2000]);
     }
   };
 
