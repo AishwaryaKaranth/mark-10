@@ -40,6 +40,9 @@ function App() {
     if (bill === cash) {
       changeToBeReturned = "Cash given is equal to bill amount";
       setMessage(changeToBeReturned);
+    } else if (parseInt(bill) < 0 || parseInt(cash) < 0) {
+      changeToBeReturned = "Amount cannot be negative!";
+      setMessage(changeToBeReturned);
     } else if (parseInt(bill) > parseInt(cash)) {
       changeToBeReturned = "Amount tendered is less than the bill amount!";
       setMessage(changeToBeReturned);
@@ -98,7 +101,6 @@ function App() {
         <button label="Check" onClick={(e) => clickHandler(e)}>
           Check
         </button>
-        <p id="message">Double click to get the result!</p>
 
         <h3>{message}</h3>
         <table>
