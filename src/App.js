@@ -1,23 +1,23 @@
 import "./styles.css";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 
 function App() {
   const [bill, setBill] = useState(0);
   const [cash, setCash] = useState(0);
-  const [denominations, setDenominations] = useState(0);
   const [message, setMessage] = useState("");
-  const [one, setOne] = useState(0);
-  const [two, setTwo] = useState(0);
-  const [five, setFive] = useState(0);
-  const [ten, setTen] = useState(0);
-  const [twenty, setTwenty] = useState(0);
-  const [fifty, setFifty] = useState(0);
-  const [hundred, setHundred] = useState(0);
-  const [twoHundred, setTwoHundred] = useState(0);
-  const [fiveHundred, setFiveHundred] = useState(0);
-  const [twoThousand, setTwoThousand] = useState(0);
-  const [clicked, setClicked] = useState(false);
+  const [values, setValues] = useState({
+    2000: 0,
+    500: 0,
+    200: 0,
+    100: 0,
+    50: 0,
+    20: 0,
+    10: 0,
+    5: 0,
+    2: 0,
+    1: 0
+  });
 
   let changeToBeReturned = "";
 
@@ -34,35 +34,62 @@ function App() {
     1: 0
   };
 
-  const clickHandler = (e) => {
-    e.persist();
-    setClicked(true);
-    if (bill === cash) {
+  const clickHandler = () => {
+    if (bill === 0 && cash === 0) {
+      changeToBeReturned = "Nothing to pay!";
+      setMessage(changeToBeReturned);
+    } else if (bill === cash) {
       changeToBeReturned = "Cash given is equal to bill amount";
       setMessage(changeToBeReturned);
     } else if (parseInt(bill) < 0 || parseInt(cash) < 0) {
       changeToBeReturned = "Amount cannot be negative!";
       setMessage(changeToBeReturned);
+      setValues({
+        2000: 0,
+        500: 0,
+        200: 0,
+        100: 0,
+        50: 0,
+        20: 0,
+        10: 0,
+        5: 0,
+        2: 0,
+        1: 0
+      });
     } else if (parseInt(bill) > parseInt(cash)) {
       changeToBeReturned = "Amount tendered is less than the bill amount!";
       setMessage(changeToBeReturned);
+      setValues({
+        2000: 0,
+        500: 0,
+        200: 0,
+        100: 0,
+        50: 0,
+        20: 0,
+        10: 0,
+        5: 0,
+        2: 0,
+        1: 0
+      });
     } else {
-      changeToBeReturned = `Remaining amount to be paid ${cash - bill}`;
+      changeToBeReturned = `Remaining amount to be returned ${cash - bill}`;
 
       let denominationsToBeReturned = returnAmountHandler(bill, cash);
+      console.log(denominationsToBeReturned);
+      setMessage(() => changeToBeReturned);
 
-      setMessage(changeToBeReturned);
-      setDenominations(() => denominationsToBeReturned);
-      setOne(() => denominations[1]);
-      setTwo(() => denominations[2]);
-      setFive(() => denominations[5]);
-      setTen(() => denominations[10]);
-      setTwenty(() => denominations[20]);
-      setFifty(() => denominations[50]);
-      setHundred(() => denominations[100]);
-      setTwoHundred(() => denominations[200]);
-      setFiveHundred(() => denominations[500]);
-      setTwoThousand(() => denominations[2000]);
+      setValues({
+        2000: denominationsToBeReturned[1],
+        500: denominationsToBeReturned[500],
+        200: denominationsToBeReturned[200],
+        100: denominationsToBeReturned[100],
+        50: denominationsToBeReturned[50],
+        20: denominationsToBeReturned[20],
+        10: denominationsToBeReturned[10],
+        5: denominationsToBeReturned[5],
+        2: denominationsToBeReturned[2],
+        1: denominationsToBeReturned[1]
+      });
     }
   };
 
@@ -98,7 +125,7 @@ function App() {
           value={cash}
           onChange={(e) => setCash(e.target.value)}
         />
-        <button label="Check" onClick={(e) => clickHandler(e)}>
+        <button label="Check" onClick={() => clickHandler()}>
           Check
         </button>
 
@@ -119,16 +146,16 @@ function App() {
           </tr>
           <tr>
             <td>Number of Notes</td>
-            <td>{one}</td>
-            <td>{two}</td>
-            <td>{five}</td>
-            <td>{ten}</td>
-            <td>{twenty}</td>
-            <td>{fifty}</td>
-            <td>{hundred}</td>
-            <td>{twoHundred}</td>
-            <td>{fiveHundred}</td>
-            <td>{twoThousand}</td>
+            <td>{bill !== cash ? values[1] : 0}</td>
+            <td>{bill !== cash ? values[2] : 0}</td>
+            <td>{bill !== cash ? values[5] : 0}</td>
+            <td>{bill !== cash ? values[10] : 0}</td>
+            <td>{bill !== cash ? values[20] : 0}</td>
+            <td>{bill !== cash ? values[50] : 0}</td>
+            <td>{bill !== cash ? values[100] : 0}</td>
+            <td>{bill !== cash ? values[200] : 0}</td>
+            <td>{bill !== cash ? values[500] : 0}</td>
+            <td>{bill !== cash ? values[2000] : 0}</td>
           </tr>
         </table>
       </div>
