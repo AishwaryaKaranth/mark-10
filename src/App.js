@@ -1,5 +1,5 @@
 import "./styles.css";
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 
 function App() {
@@ -79,7 +79,7 @@ function App() {
       setMessage(() => changeToBeReturned);
 
       setValues({
-        2000: denominationsToBeReturned[1],
+        2000: denominationsToBeReturned[2000],
         500: denominationsToBeReturned[500],
         200: denominationsToBeReturned[200],
         100: denominationsToBeReturned[100],
